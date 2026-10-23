@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Birthday Celebration Tracker</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #c2e9fb, #fbc2eb);
+            text-align: center;
+            color: #333;
+            padding: 20px;
+        }
+
+        .birthday-box {
+            background: white;
+            max-width: 500px;
+            margin: 30px auto;
+            padding: 25px;
+            border: 4px solid #ff69b4;
+            border-radius: 25px;
+            box-shadow: 0 5px 15px #d8a7c7;
+        }
+
+        h1 {
+            color: #e84393;
+        }
+
+        .cake {
+            font-size: 65px;
+        }
+
+        button {
+            background-color: #e84393;
+            color: white;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #c2185b;
+        }
+
+        .details {
+            background-color: #fff0f6;
+            border: 2px dashed #ff69b4;
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 20px;
+            text-align: left;
+            overflow-wrap: anywhere;
+        }
+
+        #days {
+            font-size: 45px;
+            color: #7b2cbf;
+            font-weight: bold;
+        }
+
+        #result, #activities {
+            line-height: 1.8;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="birthday-box">
+
+        <div class="cake">🎂</div>
+
+        <h1>Birthday Celebration Tracker</h1>
+
+        <p>Let's find out how long we have to wait for the birthday!</p>
+
+        <button onclick="startCountdown()">Start Countdown</button>
+
+        <h2>Days Remaining</h2>
+        <div id="days">?</div>
+
+        <div class="details">
+            <h2>Birthday Details</h2>
+            <p id="result">Click the button to see the details.</p>
+        </div>
+
+        <div class="details">
+            <h2>Birthday Preparation</h2>
+            <p id="activities"></p>
+        </div>
+
+    </div>
+
+    <script>
+        function startCountdown() {
+
+            // Null and Undefined
+            let birthdayCake = null;
+            let partyVenue;
+
+            // Variables
+            const name = "Rahul";
+            const month = 8;
+            const date = 15;
+
+            let birthdayMessage = "";
+            let activityList = "";
+
+            // Date Object
+            let today = new Date();
+            let year = today.getFullYear();
+
+            let nextBirthday = new Date(year, month - 1, date);
+
+            // Find the next birthday
+            if (
+                today.getMonth() === month - 1 &&
+                today.getDate() === date
+            ) {
+                birthdayMessage = "Happy Birthday, " + name + "!";
+            } else {
+
+                if (nextBirthday < today) {
+                    nextBirthday = new Date(year + 1, month - 1, date);
+                }
+
+                birthdayMessage = "Your special day is coming, " + name + "!";
+            }
+
+            // Calculate days remaining
+            let difference = nextBirthday - today;
+            let remainingDays = Math.ceil(
+                difference / (1000 * 60 * 60 * 24)
+            );
+
+            // Conditional Statements
+            if (remainingDays === 0) {
+                birthdayMessage = "Happy Birthday, " + name + "! Enjoy your day!";
+            } else if (remainingDays <= 7) {
+                birthdayMessage = "Only a few days left! Get ready, " + name + "!";
+            } else {
+                birthdayMessage = "Keep smiling, " + name + "! Your birthday is on its way.";
+            }
+
+            // String Concatenation
+            let details = "Name: " + name + "<br>";
+            details += "Today's Date: " + today.toDateString() + "<br>";
+            details += "Next Birthday: " + nextBirthday.toDateString() + "<br>";
+            details += "Status: " + birthdayMessage + "<br>";
+            details += "Birthday Cake: " + birthdayCake + "<br>";
+            details += "Party Venue: " + partyVenue;
+
+            document.getElementById("days").innerHTML = remainingDays;
+            document.getElementById("result").innerHTML = details;
+
+            // While Loop
+            let count = 1;
+
+            while (count <= 5) {
+                activityList += "Preparation " + count +
+                    ": Get ready for the celebration!<br>";
+                count++;
+            }
+
+            document.getElementById("activities").innerHTML = activityList;
+        }
+    </script>
+
+</body>
+</html>
